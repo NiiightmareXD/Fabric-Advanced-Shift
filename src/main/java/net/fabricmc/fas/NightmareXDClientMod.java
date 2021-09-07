@@ -207,7 +207,6 @@ public class NightmareXDClientMod implements ClientModInitializer {
                         if (stopwatch.elapsed(TimeUnit.MILLISECONDS) > delay) {
                             stopwatch.stop();
                         } else {
-                            //if (!client.player.isInLava() && !client.player.isRiding() && !client.player.isInSwimmingPose() && client.player.getPose() != EntityPose.SWIMMING && !client.player.isSpectator() && !client.player.isCreative() && !client.player.isFallFlying())
                             if (client.player != null) {
                                 if (client.player.isOnGround()) {
                                     shifty = true;
