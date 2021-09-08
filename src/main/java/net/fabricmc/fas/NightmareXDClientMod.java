@@ -99,6 +99,7 @@ public class NightmareXDClientMod implements ClientModInitializer {
     public boolean sb = false;
     @Override
     public void onInitializeClient() {
+        playerXD = MinecraftClient.getInstance().player;
         DoTheFileF();
         try {
             br = new BufferedReader(new FileReader(config));
