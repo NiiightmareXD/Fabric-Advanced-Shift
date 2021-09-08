@@ -13,7 +13,7 @@
     "sources": "https://github.com/NiiightmareXD/Fabric-Advanced-Shift/tree/main/src/main"
   },
 
-  "license": "CC0-1.0",
+  "license": "MIT",
   "icon": "assets/fas/icon.png",
 
   "environment": "*",
