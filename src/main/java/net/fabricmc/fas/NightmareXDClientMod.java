@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.server.command.CommandManager;
@@ -23,7 +24,7 @@ public class NightmareXDClientMod implements ClientModInitializer {
     String st = "350";
     public short delay = 350;
 
-    MinecraftClient client2 = MinecraftClient.getInstance();
+    ClientPlayerEntity playerXD = MinecraftClient.getInstance().player;
 
     void ConfigUse()
     {
@@ -35,13 +36,18 @@ public class NightmareXDClientMod implements ClientModInitializer {
             Construct();
             bw.write(String.valueOf(delay));
             bw.close();
-            if (client2.player != null) {
-                client2.player.sendMessage(new LiteralText("§aSuccessfully Saved In The Config§a"), false);
+            if (playerXD != null) {
+                playerXD.sendMessage(new LiteralText("§aSuccessfully Saved In The Config§a"), false);
+            } else {
+                playerXD = MinecraftClient.getInstance().player;
+                if (playerXD != null) {
+                    playerXD.sendMessage(new LiteralText("§aSuccessfully Saved In The Config§a"), false);
+                }
             }
 
         } catch (IOException e) {
-            if (client2.player != null) {
-                client2.player.sendMessage(new LiteralText("§4Failed To Save in Config§4"), false);
+            if (playerXD != null) {
+                playerXD.sendMessage(new LiteralText("§4Failed To Save in Config§4"), false);
             }
             System.out.println("(Fabric Advanced Shift) Error Failed To Write To The File");
             e.printStackTrace();
@@ -86,6 +92,8 @@ public class NightmareXDClientMod implements ClientModInitializer {
     }
 
     KeyBinding ToggleSBMode = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.fas.toggle-speed-bridge-mode", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_K, "category.fas.FabricAdvancedShift"));
+    KeyBinding DelayUp = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.fas.Delay-Up", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_O, "category.fas.FabricAdvancedShift"));
+    KeyBinding DelayDown = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.fas.Delay-Down", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_I, "category.fas.FabricAdvancedShift"));
 
     public boolean shifty = false;
     public boolean sb = false;
@@ -131,8 +139,8 @@ public class NightmareXDClientMod implements ClientModInitializer {
                     .then(CommandManager.literal("up")
                             .executes(context -> {
                                 delay = (short) (delay + 50);
-                                if (client2.player != null) {
-                                    client2.player.sendMessage(new LiteralText("§aDelay Is Now §a" + delay + "§a, +50 More Than Before§a"), false);
+                                if (playerXD != null) {
+                                    playerXD.sendMessage(new LiteralText("§aDelay Is Now §a" + delay + "§a, 50 More Than Before§a"), false);
                                 }
                                 return 1;
                             })
@@ -140,8 +148,8 @@ public class NightmareXDClientMod implements ClientModInitializer {
                     .then(CommandManager.literal("down")
                             .executes(context -> {
                                 delay = (short) (delay - 50);
-                                if (client2.player != null) {
-                                    client2.player.sendMessage(new LiteralText("§4Delay Is Now §4" + delay + "§4, -50 Less Than Before§4"), false);
+                                if (playerXD != null) {
+                                    playerXD.sendMessage(new LiteralText("§4Delay Is Now §4" + delay + "§4, 50 Less Than Before§4"), false);
                                 }
                                 return 1;
                             })
@@ -149,8 +157,8 @@ public class NightmareXDClientMod implements ClientModInitializer {
                     .then(CommandManager.literal("default")
                             .executes(context -> {
                                 delay = 350;
-                                if (client2.player != null) {
-                                    client2.player.sendMessage(new LiteralText("§bDelay Is Now §b" + delay + "§b, Back To Default§b"), false);
+                                if (playerXD != null) {
+                                    playerXD.sendMessage(new LiteralText("§bDelay Is Now §b" + delay + "§b, Back To Default§b"), false);
                                 }
                                 return 1;
                             })
@@ -161,8 +169,8 @@ public class NightmareXDClientMod implements ClientModInitializer {
                             .executes(context -> {
                                 delay = (short) (delay + 50);
                                 ConfigUse();
-                                if (client2.player != null) {
-                                    client2.player.sendMessage(new LiteralText("§aDelay Is Now §a" + delay + "§a, +50 More Than Before§a"), false);
+                                if (playerXD != null) {
+                                    playerXD.sendMessage(new LiteralText("§aDelay Is Now §a" + delay + "§a, 50 More Than Before§a"), false);
                                 }
                                 return 1;
                             })
@@ -171,8 +179,8 @@ public class NightmareXDClientMod implements ClientModInitializer {
                             .executes(context -> {
                                 delay = (short) (delay - 50);
                                 ConfigUse();
-                                if (client2.player != null) {
-                                    client2.player.sendMessage(new LiteralText("§4Delay Is Now §4" + delay + "§4, -50 Less Than Before§4"), false);
+                                if (playerXD != null) {
+                                    playerXD.sendMessage(new LiteralText("§4Delay Is Now §4" + delay + "§4, 50 Less Than Before§4"), false);
                                 }
                                 return 1;
                             })
@@ -181,8 +189,8 @@ public class NightmareXDClientMod implements ClientModInitializer {
                             .executes(context -> {
                                 delay = 350;
                                 ConfigUse();
-                                if (client2.player != null) {
-                                    client2.player.sendMessage(new LiteralText("§bDelay Is Now §b" + delay + "§b, Back To Default§b"), false);
+                                if (playerXD != null) {
+                                    playerXD.sendMessage(new LiteralText("§bDelay Is Now §b" + delay + "§b, Back To Default§b"), false);
                                 }
                                 return 1;
                             })
@@ -195,6 +203,7 @@ public class NightmareXDClientMod implements ClientModInitializer {
             {
                 client.options.keySneak.setPressed(true);
             }
+
             while (client.options.keySneak.wasPressed()) {
                 if (!sb) {
                     if (shifty) {
@@ -224,10 +233,16 @@ public class NightmareXDClientMod implements ClientModInitializer {
                         stopwatch.reset();
                     }
                     stopwatch.start();
+                } else {
+                    if (shifty) {
+                        if (client.player != null) {
+                            client.player.sendMessage(new LiteralText("Toggle Sneak Mode §4Off§4"), true);
+                        }
+                        shifty = false;
+                    }
                 }
             }
-        });
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+
             while (ToggleSBMode.wasPressed()) {
                 if (sb)
                 {
@@ -240,6 +255,22 @@ public class NightmareXDClientMod implements ClientModInitializer {
                         client.player.sendMessage(new LiteralText("Speed bridge Mode §aOn§a"), true);
                     }
                     sb = true;
+                }
+            }
+
+            while (DelayUp.wasPressed()) {
+                delay = (short) (delay + 50);
+                ConfigUse();
+                if (client.player != null) {
+                    client.player.sendMessage(new LiteralText("§aDelay Is Now §a" + delay + "§a, 50 More Than Before§a"), false);
+                }
+            }
+
+            while (DelayDown.wasPressed()) {
+                delay = (short) (delay - 50);
+                ConfigUse();
+                if (client.player != null) {
+                    client.player.sendMessage(new LiteralText("§4Delay Is Now §4" + delay + "§4, 50 Less Than Before§4"), false);
                 }
             }
         });

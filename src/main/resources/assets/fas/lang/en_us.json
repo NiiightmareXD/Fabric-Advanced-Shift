@@ -1,4 +1,6 @@
 {
   "category.fas.FabricAdvancedShift": "Fabric Advanced Shift",
-  "key.fas.toggle-speed-bridge-mode": "Toogle Speed Bridge Mode (Turns Double Shift On/Off)"
+  "key.fas.toggle-speed-bridge-mode": "Toggle Speed Bridge Mode (Turns Double Shift On/Off)",
+  "key.fas.Delay-Up": "Makes Delay Between Each Shift 1 Up",
+  "key.fas.Delay-Down": "Makes Delay Between Each Shift 1 Down"
 }
